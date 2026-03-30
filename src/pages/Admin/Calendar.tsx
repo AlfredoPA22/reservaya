@@ -46,7 +46,6 @@ export const AdminCalendar = () => {
       const { data } = await appointmentsApi.getByRange(start, end);
       const mapped: CalEvent[] = data.map((apt) => {
         const service = typeof apt.serviceId === 'object' ? apt.serviceId : null;
-        const professional = typeof apt.professionalId === 'object' ? apt.professionalId : null;
         const client = typeof apt.clientId === 'object' ? apt.clientId : null;
         const [h, m] = apt.timeSlot.split(':').map(Number);
         const start = new Date(apt.date + 'T00:00:00');

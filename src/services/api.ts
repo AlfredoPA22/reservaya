@@ -39,7 +39,7 @@ export const authApi = {
       ? { email: identifier, password }
       : { user_name: identifier, password });
   },
-  register: (data: { name: string; email: string; password: string; phone?: string }) =>
+  register: (data: { name: string; email: string; password: string; phone?: string; companyId?: string }) =>
     api.post<AuthResponse>('/auth/register', data),
   createAdmin: (data: { name: string; email: string; password: string; phone?: string }) =>
     api.post<AuthResponse>('/auth/create-admin', data),
