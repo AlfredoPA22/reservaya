@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { businessProfileApi } from '../../services/api';
+import { uploadImage } from '../../utils/uploadImage';
 import { Spinner } from '../../components/ui/Spinner';
 import { Building2, Camera, Mail, MapPin, Phone, Save, Type } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -52,10 +53,11 @@ export const AdminCompanyProfile = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      const fd = new FormData();
-      Object.entries(form).forEach(([k, v]) => fd.append(k, v));
-      if (imageFile) fd.append('image', imageFile);
-      const { data } = await businessProfileApi.updateMyProfile(fd);
+      let imageUrl = currentImage;
+      if (imageFile) {
+        imageUrl = await uploadImage(imageFile);
+      }
+      const { data } = await businessProfileApi.updateMyProfile({ ...form, image: imageUrl });
       setCurrentImage(data.image || '');
       setPreviewImage('');
       setImageFile(null);

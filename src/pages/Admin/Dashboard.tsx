@@ -31,7 +31,7 @@ export const AdminDashboard = () => {
       .finally(() => setLoading(false));
 
     if (user?.companyId) {
-      axios.get(`/landing/company/info/${user.companyId}`)
+      axios.get(`${import.meta.env.VITE_LANDING_URL}/company/info/${user.companyId}`)
         .then(({ data }) => { if (data?.slug) setCompanySlug(data.slug); })
         .catch(() => {});
     }

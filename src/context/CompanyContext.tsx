@@ -41,7 +41,7 @@ export const CompanyProvider = ({ children }: { children: ReactNode }) => {
   const [profile, setProfile] = useState<CompanyProfile | null>(null);
 
   const fetchProfile = useCallback((id: string) => {
-    axios.get(`/api/business-profile/public?companyId=${id}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/business-profile/public?companyId=${id}`)
       .then(({ data }) => {
         const storedName = localStorage.getItem(NAME_KEY) || '';
         setProfile({
@@ -78,14 +78,14 @@ export const CompanyProvider = ({ children }: { children: ReactNode }) => {
     if (isObjectId(param)) {
       localStorage.setItem(STORAGE_KEY, param);
       setCompanyId(param);
-      axios.get(`/landing/company/info/${param}`)
+      axios.get(`${import.meta.env.VITE_LANDING_URL}/company/info/${param}`)
         .then(({ data }) => {
           if (data.slug) { localStorage.setItem(SLUG_KEY, data.slug); setSlug(data.slug); }
           if (data.name) localStorage.setItem(NAME_KEY, data.name);
         })
         .catch(() => {});
     } else {
-      axios.get(`/landing/company/by-slug/${param}`)
+      axios.get(`${import.meta.env.VITE_LANDING_URL}/company/by-slug/${param}`)
         .then(({ data }) => {
           localStorage.setItem(STORAGE_KEY, data.companyId);
           localStorage.setItem(SLUG_KEY, data.slug);

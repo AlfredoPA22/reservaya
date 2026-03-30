@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { AuthResponse, Service, Professional, Appointment, AvailabilityResponse } from '../types';
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -93,9 +93,7 @@ export const reportsApi = {
 // Business Profile
 export const businessProfileApi = {
   getMyProfile: () => api.get('/business-profile'),
-  updateMyProfile: (data: FormData) => api.put('/business-profile', data, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }),
+  updateMyProfile: (data: Record<string, string>) => api.put('/business-profile', data),
   getPublicProfile: (companyId: string) => api.get('/business-profile/public', { params: { companyId } }),
 };
 
