@@ -113,7 +113,7 @@ export const AdminServices = () => {
           {services.length === 0 ? (
             <div className="py-12 text-center text-gray-400">No hay servicios. Creá el primero.</div>
           ) : (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto"><table className="w-full text-sm">
               <thead className="bg-gray-50 text-gray-500 uppercase text-xs">
                 <tr>
                   <th className="px-6 py-3 text-left">Nombre</th>
@@ -158,7 +158,7 @@ export const AdminServices = () => {
                   );
                 })}
               </tbody>
-            </table>
+            </table></div>
           )}
         </div>
       )}
@@ -180,7 +180,7 @@ export const AdminServices = () => {
             {professionals.filter((p) => p.active).length === 0 ? (
               <p className="text-xs text-gray-400">No hay profesionales disponibles</p>
             ) : (
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {professionals.filter((p) => p.active).map((p) => (
                   <label key={p._id} className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                     form.selectedProfIds.includes(p._id) ? 'border-indigo-400 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'

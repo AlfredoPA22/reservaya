@@ -87,7 +87,7 @@ export const AdminAppointments = () => {
           </Button>
         )}
 
-        <span className="ml-auto text-sm text-gray-400">
+        <span className="sm:ml-auto text-sm text-gray-400 w-full sm:w-auto">
           {!loading && `${appointments.length} ${appointments.length !== 1 ? t('appts.resultsPlural') : t('appts.results')}`}
         </span>
       </div>

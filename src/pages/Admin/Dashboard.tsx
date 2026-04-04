@@ -84,24 +84,24 @@ export const AdminDashboard = () => {
       </div>
 
       {bookingUrl && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 mb-8">
           <div className="flex items-center gap-2 mb-4">
             <QrCode className="w-5 h-5 text-indigo-600" />
             <h2 className="text-base font-semibold text-gray-900">{t('dashboard.bookingLink')}</h2>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6 items-start">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
             <div id="booking-qr" className="shrink-0 flex flex-col items-center gap-2">
               <div className="p-3 border-2 border-indigo-100 rounded-xl bg-white">
-                <QRCodeCanvas value={bookingUrl} size={140} fgColor="#4338ca" bgColor="#ffffff" level="M" />
+                <QRCodeCanvas value={bookingUrl} size={130} fgColor="#4338ca" bgColor="#ffffff" level="M" />
               </div>
               <button onClick={handleDownloadQR} className="text-xs text-indigo-600 hover:underline">
                 {t('dashboard.downloadQR')}
               </button>
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="w-full min-w-0 flex-1">
               <p className="text-sm text-gray-500 mb-2">{t('dashboard.shareLink')}</p>
-              <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
-                <span className="text-sm text-gray-700 truncate flex-1 font-mono">{bookingUrl}</span>
+              <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 overflow-hidden">
+                <span className="text-sm text-gray-700 truncate min-w-0 flex-1 font-mono">{bookingUrl}</span>
                 <button onClick={handleCopy} className="shrink-0 p-1 rounded hover:bg-gray-200 transition-colors" title="Copiar">
                   {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4 text-gray-500" />}
                 </button>
@@ -116,7 +116,7 @@ export const AdminDashboard = () => {
       )}
 
       <div className="bg-white rounded-xl border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-100">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-100">
           <h2 className="text-base font-semibold text-gray-900">{t('dashboard.todayAppointments')}</h2>
         </div>
         {loading ? <Spinner /> : appointments.length === 0 ? (
@@ -128,16 +128,16 @@ export const AdminDashboard = () => {
               const service = typeof apt.serviceId === 'object' ? apt.serviceId : null;
               const client = typeof apt.clientId === 'object' ? apt.clientId : null;
               return (
-                <div key={apt._id} className="px-6 py-4 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-indigo-100 text-indigo-700 rounded-lg px-3 py-2 text-sm font-bold min-w-[60px] text-center">
+                <div key={apt._id} className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="bg-indigo-100 text-indigo-700 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-sm font-bold min-w-[52px] text-center shrink-0">
                       {apt.timeSlot}
                     </div>
-                    <div>
-                      <p className="font-medium text-gray-900">
+                    <div className="min-w-0">
+                      <p className="font-medium text-gray-900 truncate">
                         {client?.name || apt.clientName || t('dashboard.noName')}
                       </p>
-                      <p className="text-sm text-gray-500">{service?.name} · {professional?.name}</p>
+                      <p className="text-sm text-gray-500 truncate">{service?.name} · {professional?.name}</p>
                     </div>
                   </div>
                   <StatusBadge status={apt.status} />

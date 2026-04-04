@@ -172,8 +172,8 @@ export const AdminProfessionals = () => {
       )}
 
       <Modal open={modal} onClose={() => setModal(false)} title={editing ? 'Editar profesional' : 'Nuevo profesional'} size="lg">
-        <div className="space-y-4 max-h-[70vh] overflow-y-auto">
-          <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Input label="Nombre" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
             <Input label="Especialidad" value={form.specialty} onChange={(e) => setForm({ ...form, specialty: e.target.value })} required />
           </div>
@@ -189,7 +189,7 @@ export const AdminProfessionals = () => {
             {services.length === 0 ? (
               <p className="text-xs text-gray-400">No hay servicios disponibles</p>
             ) : (
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {services.filter((s) => s.active).map((s) => (
                   <label key={s._id} className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                     form.selectedServiceIds.includes(s._id) ? 'border-indigo-400 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'
@@ -210,20 +210,24 @@ export const AdminProfessionals = () => {
             <p className="text-sm font-medium text-gray-700 mb-2">Horarios de trabajo</p>
             <div className="space-y-2">
               {(Object.keys(DAY_LABELS) as (keyof WorkingHours)[]).map((day) => (
-                <div key={day} className="flex items-center gap-3 text-sm">
-                  <input type="checkbox" id={day} checked={form.workingHours[day].active}
-                    onChange={(e) => updateDay(day, 'active', e.target.checked)}
-                    className="rounded text-indigo-600" />
-                  <label htmlFor={day} className="w-24 text-gray-700">{DAY_LABELS[day]}</label>
-                  <input type="time" value={form.workingHours[day].start}
-                    onChange={(e) => updateDay(day, 'start', e.target.value)}
-                    disabled={!form.workingHours[day].active}
-                    className="border border-gray-300 rounded px-2 py-1 text-xs disabled:opacity-40" />
-                  <span className="text-gray-400">a</span>
-                  <input type="time" value={form.workingHours[day].end}
-                    onChange={(e) => updateDay(day, 'end', e.target.value)}
-                    disabled={!form.workingHours[day].active}
-                    className="border border-gray-300 rounded px-2 py-1 text-xs disabled:opacity-40" />
+                <div key={day} className="flex items-center gap-2 text-sm flex-wrap">
+                  <div className="flex items-center gap-2 w-28">
+                    <input type="checkbox" id={day} checked={form.workingHours[day].active}
+                      onChange={(e) => updateDay(day, 'active', e.target.checked)}
+                      className="rounded text-indigo-600 shrink-0" />
+                    <label htmlFor={day} className="text-gray-700 select-none">{DAY_LABELS[day]}</label>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <input type="time" value={form.workingHours[day].start}
+                      onChange={(e) => updateDay(day, 'start', e.target.value)}
+                      disabled={!form.workingHours[day].active}
+                      className="border border-gray-300 rounded px-2 py-1 text-xs disabled:opacity-40 w-24" />
+                    <span className="text-gray-400 text-xs">a</span>
+                    <input type="time" value={form.workingHours[day].end}
+                      onChange={(e) => updateDay(day, 'end', e.target.value)}
+                      disabled={!form.workingHours[day].active}
+                      className="border border-gray-300 rounded px-2 py-1 text-xs disabled:opacity-40 w-24" />
+                  </div>
                 </div>
               ))}
             </div>

@@ -69,7 +69,7 @@ export const AdminReports = () => {
 
       {/* Filtros de fecha */}
       <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6 flex flex-wrap gap-3 items-center">
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {PRESETS.map((p, i) => (
             <Button
               key={p.label}
@@ -81,20 +81,20 @@ export const AdminReports = () => {
             </Button>
           ))}
         </div>
-        <div className="flex items-center gap-2 ml-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm text-gray-500">Personalizado:</span>
           <input
             type="date"
             value={start}
             onChange={(e) => { setStart(e.target.value); setActivePreset(-1); }}
-            className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <span className="text-gray-400">–</span>
           <input
             type="date"
             value={end}
             onChange={(e) => { setEnd(e.target.value); setActivePreset(-1); }}
-            className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
       </div>
